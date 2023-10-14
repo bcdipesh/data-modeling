@@ -1,27 +1,20 @@
 -- from the terminal run:
 -- psql < music.sql
-
 DROP DATABASE IF EXISTS music;
 
 CREATE DATABASE music;
 
-\c music
+\ c music;
 
-CREATE TABLE artists
-(
-  id SERIAL PRIMARY KEY,
-  name TEXT NOT NULL
-);
+CREATE TABLE artists (id SERIAL PRIMARY KEY, name TEXT NOT NULL);
 
-CREATE TABLE albums
-(
+CREATE TABLE albums (
   id SERIAL PRIMARY KEY,
   title TEXT NOT NULL,
   artist_id INTEGER REFERENCES artists(id)
 );
 
-CREATE TABLE songs
-(
+CREATE TABLE songs (
   id SERIAL PRIMARY KEY,
   title TEXT NOT NULL,
   duration_in_seconds INTEGER NOT NULL,
@@ -29,20 +22,16 @@ CREATE TABLE songs
   album_id INTEGER REFERENCES albums(id)
 );
 
-CREATE TABLE producers
-(
-  id SERIAL PRIMARY KEY,
-  name TEXT NOT NULL
-);
+CREATE TABLE producers (id SERIAL PRIMARY KEY, name TEXT NOT NULL);
 
-CREATE TABLE song_producers
-(
+CREATE TABLE song_producers (
   song_id INTEGER REFERENCES songs(id),
   producer_id INTEGER REFERENCES producers(id),
   PRIMARY KEY (song_id, producer_id)
 );
 
-INSERT INTO artists (name)
+INSERT INTO
+  artists (name)
 VALUES
   ('Hanson'),
   ('Queen'),
@@ -60,7 +49,8 @@ VALUES
   ('Avril Lavigne'),
   ('Destiny''s Child');
 
-INSERT INTO albums (title, artist_id)
+INSERT INTO
+  albums (title, artist_id)
 VALUES
   ('Middle of Nowhere', 1),
   ('A Night at the Opera', 2),
@@ -73,7 +63,8 @@ VALUES
   ('Let Go', 14),
   ('The Writing''s on the Wall', 15);
 
-INSERT INTO producers (name)
+INSERT INTO
+  producers (name)
 VALUES
   ('Dust Brothers'),
   ('Stephen Lironi'),
@@ -89,7 +80,13 @@ VALUES
   ('The Matrix'),
   ('Darkchild');
 
-INSERT INTO songs (title, duration_in_seconds, release_date, album_id)
+INSERT INTO
+  songs (
+    title,
+    duration_in_seconds,
+    release_date,
+    album_id
+  )
 VALUES
   ('MMMBop', 238, '1997-04-15', 1),
   ('Bohemian Rhapsody', 355, '1975-10-31', 2),
@@ -102,7 +99,8 @@ VALUES
   ('Complicated', 244, '2002-05-14', 9),
   ('Say My Name', 240, '1999-11-07', 10);
 
-INSERT INTO song_producers (song_id, producer_id)
+INSERT INTO
+  song_producers (song_id, producer_id)
 VALUES
   (1, 1),
   (1, 2),
